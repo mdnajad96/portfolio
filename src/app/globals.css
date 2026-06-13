@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 255 255 255;
+    --foreground: 15 23 42;
+    --muted: 100 116 139;
+    --border: 226 232 240;
+    --surface: 248 250 252;
+    --accent: 37 99 235;
+  }
+
+  .dark {
+    --background: 8 11 18;
+    --foreground: 226 232 240;
+    --muted: 148 163 184;
+    --border: 30 41 59;
+    --surface: 15 20 30;
+    --accent: 96 165 250;
+  }
+
+  * {
+    border-color: rgb(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: normal;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: rgba(37, 99, 235, 0.18);
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Accessible focus ring */
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Engineering-inspired gradient text */
+  .text-gradient {
+    @apply bg-gradient-to-br from-ink-950 via-accent-700 to-cyan-600 bg-clip-text text-transparent;
+  }
+
+  .dark .text-gradient {
+    @apply from-white via-accent-300 to-cyan-400;
+  }
+
+  /* Premium surface card */
+  .surface-card {
+    background-color: rgb(var(--background));
+    @apply rounded-2xl border border-ink-100 shadow-soft transition-all duration-300;
+  }
+
+  .dark .surface-card {
+    @apply border-ink-800;
+    background-color: rgb(var(--surface));
+  }
+
+  /* Soft eyebrow chip */
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white/70 px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-ink-600 backdrop-blur;
+  }
+
+  .dark .chip {
+    @apply border-ink-700 bg-ink-900/60 text-ink-300;
+  }
+
+  /* Thin technical divider */
+  .rule {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-ink-200 to-transparent;
+  }
+
+  .dark .rule {
+    @apply via-ink-700;
+  }
+}
+
+@layer utilities {
+  /* Blueprint / CAD grid background */
+  .bg-blueprint {
+    background-image: var(--tw-bg-grid, none);
+    background-size: 36px 36px;
+  }
+
+  .grid-mask {
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 40%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 40%,
+      transparent 100%
+    );
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}

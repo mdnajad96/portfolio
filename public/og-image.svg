@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Muhammad Munajad — Mechanical Engineer">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="0.6" stop-color="#111a2e"/>
+      <stop offset="1" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#60a5fa"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#1e3a8a" stroke-opacity="0.35" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="22%" cy="30%" r="55%">
+      <stop offset="0" stop-color="#2563eb" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <circle cx="1010" cy="150" r="220" fill="none" stroke="#2563eb" stroke-opacity="0.25" stroke-width="2"/>
+  <circle cx="1010" cy="150" r="160" fill="none" stroke="#22d3ee" stroke-opacity="0.18" stroke-width="2" stroke-dasharray="6 10"/>
+
+  <g transform="translate(90,150)">
+    <rect x="0" y="0" width="60" height="60" rx="14" fill="#ffffff"/>
+    <text x="30" y="42" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="34" font-weight="700" fill="#0b1220">M</text>
+
+    <text x="0" y="160" font-family="Arial, sans-serif" font-size="22" letter-spacing="4" fill="#7b95b6">PORTFOLIO</text>
+    <text x="0" y="240" font-family="'Space Grotesk', Arial, sans-serif" font-size="78" font-weight="700" fill="#ffffff">Muhammad Munajad</text>
+
+    <rect x="2" y="272" width="120" height="5" rx="2.5" fill="url(#accent)"/>
+
+    <text x="0" y="338" font-family="Arial, sans-serif" font-size="30" fill="#cbd5e1">Mechanical Engineer &#183; Process Quality Engineer</text>
+    <text x="0" y="382" font-family="Arial, sans-serif" font-size="30" fill="#cbd5e1">Product Design Engineer &#183; Researcher</text>
+
+    <text x="0" y="452" font-family="Arial, sans-serif" font-size="22" fill="#7b95b6">M.Sc. NTUST  &#8226;  CATL Karawang  &#8226;  9+ Years Experience</text>
+  </g>
+</svg>
