@@ -1,0 +1,43 @@
+import { cn } from "@/lib/utils";
+import { Reveal } from "./Reveal";
+
+interface SectionHeadingProps {
+  eyebrow?: string;
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  align?: "left" | "center";
+  className?: string;
+}
+
+export function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  align = "left",
+  className,
+}: SectionHeadingProps) {
+  return (
+    <Reveal
+      className={cn(
+        "max-w-2xl",
+        align === "center" && "mx-auto text-center",
+        className,
+      )}
+    >
+      {eyebrow ? (
+        <span className="chip mb-4">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent-600" />
+          {eyebrow}
+        </span>
+      ) : null}
+      <h2 className="text-3xl font-semibold tracking-tightest text-ink-950 dark:text-white sm:text-4xl">
+        {title}
+      </h2>
+      {description ? (
+        <p className="mt-4 text-base leading-relaxed text-ink-600 dark:text-ink-300 sm:text-lg">
+          {description}
+        </p>
+      ) : null}
+    </Reveal>
+  );
+}
