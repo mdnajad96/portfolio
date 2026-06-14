@@ -5,15 +5,15 @@ type Variant = "primary" | "secondary" | "ghost";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 focus-visible:outline-none disabled:opacity-60 disabled:pointer-events-none";
+  "group/btn inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-300 focus-visible:outline-none active:scale-[0.98] disabled:opacity-60 disabled:pointer-events-none";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-ink-950 text-white shadow-soft hover:bg-accent-700 hover:shadow-glow dark:bg-white dark:text-ink-950 dark:hover:bg-accent-300",
+    "bg-primary text-primary-foreground shadow-md hover:bg-primary-hover hover:shadow-glow",
   secondary:
-    "border border-ink-200 bg-white/70 text-ink-800 backdrop-blur hover:border-accent-400 hover:text-accent-700 dark:border-ink-700 dark:bg-ink-900/50 dark:text-ink-100 dark:hover:border-accent-500 dark:hover:text-white",
+    "border border-border bg-surface/80 text-content backdrop-blur hover:border-border-hover hover:text-primary hover:shadow-sm",
   ghost:
-    "text-ink-700 hover:bg-ink-100 dark:text-ink-200 dark:hover:bg-ink-800/60",
+    "text-content-secondary hover:bg-surface-secondary hover:text-content",
 };
 
 const sizes: Record<Size, string> = {
@@ -33,6 +33,7 @@ interface LinkButtonProps extends CommonProps {
   href: string;
   external?: boolean;
   download?: boolean;
+  "aria-label"?: string;
 }
 
 export function ButtonLink({
@@ -43,6 +44,7 @@ export function ButtonLink({
   size = "md",
   className,
   children,
+  ...rest
 }: LinkButtonProps) {
   const classes = cn(base, variants[variant], sizes[size], className);
 
@@ -55,6 +57,7 @@ export function ButtonLink({
         {...(external
           ? { target: "_blank", rel: "noopener noreferrer" }
           : {})}
+        {...rest}
       >
         {children}
       </a>
@@ -62,7 +65,7 @@ export function ButtonLink({
   }
 
   return (
-    <Link href={href} className={classes}>
+    <Link href={href} className={classes} {...rest}>
       {children}
     </Link>
   );

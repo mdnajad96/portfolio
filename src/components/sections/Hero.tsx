@@ -17,9 +17,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { GridBackground, GlowAccent } from "@/components/ui/GridBackground";
 
 // Hoisted static variant sets so the Hero doesn't reallocate objects
-// on every render. The `y` translate is the only thing that changes
-// based on the reduced-motion preference, and that's small enough to
-// swap via a shallow object spread.
+// on every render.
 const heroContainer: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
@@ -61,14 +59,24 @@ export function Hero() {
             animate="visible"
             className="order-2 lg:order-1"
           >
-            <motion.span variants={heroItem} className="chip">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent-600" />
+            <motion.span
+              variants={heroItem}
+              className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3.5 py-1.5 text-xs font-medium text-content-secondary"
+            >
+              <span className="status-dot" />
+              Open to opportunities &amp; collaborations
+            </motion.span>
+
+            <motion.span
+              variants={heroItem}
+              className="mt-4 block font-mono text-xs uppercase tracking-[0.22em] text-content-muted"
+            >
               {hero.eyebrow}
             </motion.span>
 
             <motion.h1
               variants={heroItem}
-              className="mt-6 font-display text-4xl font-semibold leading-[1.05] tracking-tightest text-ink-950 dark:text-white sm:text-5xl lg:text-6xl"
+              className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tightest text-content sm:text-5xl lg:text-6xl"
             >
               {hero.headlineLines.map((line, i) => (
                 <span key={line} className="block">
@@ -81,7 +89,7 @@ export function Hero() {
 
             <motion.p
               variants={heroItem}
-              className="mt-6 max-w-xl text-base leading-relaxed text-ink-600 dark:text-ink-300 sm:text-lg"
+              className="mt-6 max-w-xl text-base leading-relaxed text-content-secondary text-pretty sm:text-lg"
             >
               {hero.subheadline}
             </motion.p>
@@ -91,7 +99,7 @@ export function Hero() {
               className="mt-8 flex flex-wrap items-center gap-3"
             >
               <ButtonLink href={siteConfig.resumeUrl} download size="lg">
-                <Download className="h-4 w-4" />
+                <Download className="h-4 w-4 transition-transform duration-300 group-hover/btn:-translate-y-0.5" />
                 Download Resume
               </ButtonLink>
               <ButtonLink href="/contact" variant="secondary" size="lg">
@@ -100,15 +108,31 @@ export function Hero() {
               </ButtonLink>
               <ButtonLink href="/projects" variant="ghost" size="lg">
                 View Projects
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
               </ButtonLink>
             </motion.div>
 
+            {/* Trust indicators / achievement highlights */}
+            <motion.ul
+              variants={heroItem}
+              className="mt-9 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-6"
+            >
+              {hero.trustSignals.map((signal) => (
+                <li
+                  key={signal}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-content-secondary"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                  {signal}
+                </li>
+              ))}
+            </motion.ul>
+
             <motion.div
               variants={heroItem}
-              className="mt-9 flex items-center gap-5"
+              className="mt-8 flex items-center gap-5"
             >
-              <span className="text-xs font-medium uppercase tracking-[0.16em] text-ink-400 dark:text-ink-500">
+              <span className="text-xs font-medium uppercase tracking-[0.16em] text-content-muted">
                 Connect
               </span>
               <div className="flex items-center gap-2">
@@ -164,7 +188,7 @@ function SocialLink({
       href={href}
       aria-label={label}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="grid h-9 w-9 place-items-center rounded-full border border-ink-200 bg-white/70 text-ink-700 backdrop-blur transition-colors hover:border-accent-400 hover:text-accent-700 dark:border-ink-700 dark:bg-ink-900/50 dark:text-ink-200 dark:hover:border-accent-500 dark:hover:text-white"
+      className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-surface/70 text-content-secondary backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-border-hover hover:text-primary hover:shadow-sm"
     >
       {children}
     </a>
@@ -174,10 +198,18 @@ function SocialLink({
 function Portrait() {
   return (
     <div className="relative mx-auto max-w-sm lg:max-w-md">
-      {/* Decorative technical frame */}
-      <div className="absolute -inset-3 -z-10 rounded-[2rem] bg-gradient-to-tr from-accent-500/20 via-cyan-400/10 to-transparent blur-2xl" />
-      <div className="relative overflow-hidden rounded-[1.75rem] border border-ink-100 bg-white shadow-card dark:border-ink-800 dark:bg-ink-900">
-        <div className="absolute inset-0 bg-grid-light dark:bg-grid-dark" style={{ backgroundSize: "28px 28px" }} />
+      {/* Decorative technical glow */}
+      <div className="absolute -inset-3 -z-10 rounded-[2rem] bg-gradient-to-tr from-primary/25 via-info/15 to-transparent blur-2xl" />
+      {/* Floating accent ring */}
+      <div
+        aria-hidden="true"
+        className="absolute -right-4 -top-4 h-24 w-24 animate-float rounded-2xl border border-primary/20 bg-primary-soft/40 backdrop-blur-sm"
+      />
+      <div className="relative overflow-hidden rounded-[1.75rem] border border-border bg-surface shadow-lg">
+        <div
+          className="absolute inset-0 bg-grid-light dark:bg-grid-dark"
+          style={{ backgroundSize: "28px 28px" }}
+        />
         <Image
           src="/Munajad.jpeg"
           alt="Portrait of Muhammad Munajad, Mechanical Engineer"
@@ -186,17 +218,17 @@ function Portrait() {
           priority
           className="relative h-auto w-full object-cover"
         />
-        {/* Caption badge */}
-        <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-2xl border border-white/40 bg-white/80 px-4 py-3 backdrop-blur-md dark:border-ink-700/60 dark:bg-ink-950/70">
+        {/* Caption badge — glass */}
+        <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-2xl border border-border glass px-4 py-3">
           <div>
-            <p className="text-sm font-semibold text-ink-950 dark:text-white">
+            <p className="text-sm font-semibold text-content">
               Muhammad Munajad
             </p>
-            <p className="text-xs text-ink-500 dark:text-ink-400">
+            <p className="text-xs text-content-muted">
               Process Quality Engineer · CATL
             </p>
           </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-50 px-2.5 py-1 text-[11px] font-medium text-accent-700 dark:bg-ink-800 dark:text-accent-300">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-2.5 py-1 text-[11px] font-medium text-primary">
             <MapPin className="h-3 w-3" /> Indonesia
           </span>
         </div>

@@ -7,8 +7,10 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Atom,
+  Bot,
   Boxes,
   CircuitBoard,
+  Code2,
   Cog,
   Cpu,
   FlaskConical,
@@ -21,7 +23,6 @@ import {
   Ruler,
   Settings,
   ShieldCheck,
-  Wrench,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
@@ -37,6 +38,13 @@ export const hero = {
   ],
   subheadline:
     "Mechanical Engineer with 9+ years of experience in product development, manufacturing systems, quality engineering, advanced materials research, CAD/CAM, CNC programming, and industrial innovation.",
+  /** Compact trust indicators surfaced under the hero CTAs. */
+  trustSignals: [
+    "M.Sc. — NTUST, Taiwan",
+    "Process Quality Engineer @ CATL",
+    "Published Researcher",
+    "9+ Years of Experience",
+  ],
 };
 
 /* ------------------------------------------------------------------ */
@@ -200,6 +208,8 @@ export interface Project {
   solution: string;
   approach: string;
   outcome: string;
+  /** Short, scannable impact highlights derived from the outcome. */
+  impact: string[];
   icon: LucideIcon;
   accent: string;
 }
@@ -218,6 +228,11 @@ export const projects: Project[] = [
       "Designed experiments with Taguchi methods, fabricated samples via stir casting, then characterized microstructure and phases with SEM/EDX and XRD alongside mechanical and energy-absorption testing.",
     outcome:
       "Demonstrated measurable gains in energy absorption and a validated, repeatable processing route — published in a peer-reviewed journal.",
+    impact: [
+      "Peer-reviewed publication",
+      "Higher energy absorption",
+      "Repeatable process route",
+    ],
     icon: Atom,
     accent: "from-blue-500/15 to-cyan-400/10",
   },
@@ -234,6 +249,11 @@ export const projects: Project[] = [
       "Modeled the mechanism in CAD, sized pneumatic and motion components, integrated a robot for part handling, and designed the control sequence for repeatable, safe operation.",
     outcome:
       "Delivered an automated inspection station that improved detection reliability and throughput on the production line.",
+    impact: [
+      "Automated inspection cell",
+      "Improved detection reliability",
+      "Higher line throughput",
+    ],
     icon: CircuitBoard,
     accent: "from-indigo-500/15 to-blue-400/10",
   },
@@ -250,6 +270,11 @@ export const projects: Project[] = [
       "Owned the full design lifecycle: requirements, CAD modeling, structural and thermal sizing, fabrication drawings, and on-site commissioning support.",
     outcome:
       "Multiple machines delivered into production, improving processing capacity and operational uptime for industrial clients.",
+    impact: [
+      "Multiple units in production",
+      "Improved processing capacity",
+      "Full lifecycle ownership",
+    ],
     icon: Factory,
     accent: "from-cyan-500/15 to-blue-400/10",
   },
@@ -336,38 +361,78 @@ export const publications: Publication[] = [
 
 export interface SkillCategory {
   title: string;
+  description: string;
   icon: LucideIcon;
   skills: string[];
 }
 
 export const skillCategories: SkillCategory[] = [
   {
-    title: "CAD / CAM",
-    icon: Ruler,
-    skills: ["SolidWorks", "Siemens NX", "Inventor", "AutoCAD", "PowerMill"],
-  },
-  {
-    title: "Manufacturing",
-    icon: Wrench,
+    title: "Quality Engineering",
+    description:
+      "Data-led quality on high-volume manufacturing lines at a global battery leader.",
+    icon: ShieldCheck,
     skills: [
-      "CNC Programming",
-      "Machine Design",
-      "Product Development",
-      "Process Optimization",
+      "Process Quality",
+      "Root Cause Analysis",
+      "Statistical Process Control",
+      "Continuous Improvement",
+      "Manufacturing Excellence",
     ],
   },
   {
-    title: "Research",
-    icon: LineChart,
-    skills: ["Taguchi", "ANOVA", "Mechanical Testing", "SEM/EDX", "XRD"],
+    title: "Manufacturing",
+    description:
+      "End-to-end manufacturing — from CAD/CAM and CNC programming to machine and mold design.",
+    icon: Cog,
+    skills: [
+      "CNC Programming",
+      "Multi-axis Machining",
+      "Machine Design",
+      "Mold Design",
+      "Product Development",
+      "Process Optimization",
+      "SolidWorks",
+      "Siemens NX",
+      "AutoCAD",
+      "Inventor",
+      "PowerMill",
+      "Metal Additive Manufacturing",
+    ],
   },
   {
-    title: "Advanced Topics",
-    icon: Atom,
+    title: "Data Analysis",
+    description:
+      "Statistical experimentation and materials characterization to validate engineering decisions.",
+    icon: LineChart,
     skills: [
-      "Metal Additive Manufacturing",
-      "Stir Casting",
+      "Taguchi Method",
+      "ANOVA",
+      "Design of Experiments",
+      "Mechanical Testing",
+      "SEM / EDX",
+      "XRD",
       "Magnesium Matrix Composites",
+      "Stir Casting",
+    ],
+  },
+  {
+    title: "Web Development",
+    description:
+      "Modern, type-safe web engineering — this portfolio is built and shipped end to end.",
+    icon: Code2,
+    skills: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    title: "AI & Automation",
+    description:
+      "Special-purpose machines, robotics integration, and smart-factory systems.",
+    icon: Bot,
+    skills: [
+      "Robot Integration",
+      "Automation Systems",
+      "Special-Purpose Machines",
+      "Industry 4.0",
     ],
   },
 ];
