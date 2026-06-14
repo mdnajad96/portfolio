@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Send, CheckCircle2 } from "lucide-react";
 import { siteConfig } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 interface FormState {
   name: string;
@@ -13,6 +14,9 @@ interface FormState {
 }
 
 const initial: FormState = { name: "", email: "", subject: "", message: "" };
+
+const fieldClasses =
+  "w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-content placeholder:text-content-muted transition-colors focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10";
 
 export function ContactForm() {
   const [form, setForm] = useState<FormState>(initial);
@@ -68,13 +72,13 @@ export function ContactForm() {
   if (submitted) {
     return (
       <div className="surface-card flex flex-col items-center justify-center p-10 text-center">
-        <span className="grid h-14 w-14 place-items-center rounded-full bg-accent-50 text-accent-700 dark:bg-ink-800 dark:text-accent-300">
+        <span className="grid h-14 w-14 place-items-center rounded-full bg-primary-soft text-primary">
           <CheckCircle2 className="h-7 w-7" />
         </span>
-        <h3 className="mt-5 text-lg font-semibold text-ink-950 dark:text-white">
+        <h3 className="mt-5 text-lg font-semibold text-content">
           Thank you for reaching out
         </h3>
-        <p className="mt-2 max-w-sm text-sm text-ink-600 dark:text-ink-300">
+        <p className="mt-2 max-w-sm text-sm text-content-secondary">
           Your email client should now be open with your message ready to send.
           I&apos;ll get back to you as soon as possible.
         </p>
@@ -129,7 +133,7 @@ export function ContactForm() {
       <div className="mt-5">
         <label
           htmlFor="message"
-          className="mb-1.5 block text-sm font-medium text-ink-800 dark:text-ink-200"
+          className="mb-1.5 block text-sm font-medium text-content"
         >
           Message
         </label>
@@ -138,11 +142,12 @@ export function ContactForm() {
           rows={5}
           value={form.message}
           onChange={update("message")}
+          aria-invalid={errors.message ? true : undefined}
           placeholder="Tell me about your project, role, or research collaboration…"
-          className="w-full resize-none rounded-xl border border-ink-200 bg-white px-4 py-3 text-sm text-ink-900 placeholder:text-ink-400 transition-colors focus:border-accent-500 focus:outline-none dark:border-ink-700 dark:bg-ink-900/50 dark:text-ink-100 dark:placeholder:text-ink-500"
+          className={cn(fieldClasses, "resize-none")}
         />
         {errors.message ? (
-          <p className="mt-1.5 text-xs text-red-500">{errors.message}</p>
+          <p className="mt-1.5 text-xs text-danger">{errors.message}</p>
         ) : null}
       </div>
 
@@ -177,11 +182,11 @@ function Field({
     <div>
       <label
         htmlFor={id}
-        className="mb-1.5 block text-sm font-medium text-ink-800 dark:text-ink-200"
+        className="mb-1.5 block text-sm font-medium text-content"
       >
         {label}
         {optional ? (
-          <span className="ml-1.5 text-xs font-normal text-ink-400">
+          <span className="ml-1.5 text-xs font-normal text-content-muted">
             (optional)
           </span>
         ) : null}
@@ -192,9 +197,10 @@ function Field({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-sm text-ink-900 placeholder:text-ink-400 transition-colors focus:border-accent-500 focus:outline-none dark:border-ink-700 dark:bg-ink-900/50 dark:text-ink-100 dark:placeholder:text-ink-500"
+        aria-invalid={error ? true : undefined}
+        className={fieldClasses}
       />
-      {error ? <p className="mt-1.5 text-xs text-red-500">{error}</p> : null}
+      {error ? <p className="mt-1.5 text-xs text-danger">{error}</p> : null}
     </div>
   );
 }

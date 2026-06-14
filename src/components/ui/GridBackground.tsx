@@ -47,7 +47,7 @@ export function GlowAccent({
         className,
       )}
     >
-      <div className="h-full w-full rounded-full bg-gradient-to-tr from-accent-400/30 via-cyan-300/20 to-transparent" />
+      <div className="h-full w-full rounded-full bg-gradient-to-tr from-primary/30 via-info/20 to-transparent" />
     </div>
   );
 }

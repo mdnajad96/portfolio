@@ -33,16 +33,16 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-b border-ink-100 bg-white/80 backdrop-blur-xl dark:border-ink-800 dark:bg-ink-950/70"
+          ? "border-b border-border bg-surface/80 shadow-sm backdrop-blur-xl"
           : "border-b border-transparent bg-transparent",
       )}
     >
       <nav className="container-page flex h-16 items-center justify-between gap-4">
         <Link
           href="/"
-          className="group flex items-center gap-2.5 font-display text-base font-semibold tracking-tight text-ink-950 dark:text-white"
+          className="group flex items-center gap-2.5 font-display text-base font-semibold tracking-tight text-content"
         >
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-ink-950 text-sm font-bold text-white transition-colors group-hover:bg-accent-700 dark:bg-white dark:text-ink-950">
+          <span className="grid h-8 w-8 place-items-center rounded-xl bg-primary text-sm font-bold text-primary-foreground shadow-sm transition-all duration-300 group-hover:bg-primary-hover group-hover:shadow-glow">
             M
           </span>
           <span className="hidden sm:inline">{siteConfig.name}</span>
@@ -54,18 +54,19 @@ export function Navbar() {
             <Link
               key={item.href}
               href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
               className={cn(
-                "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                "relative rounded-lg px-3.5 py-2 text-sm font-medium transition-colors",
                 isActive(item.href)
-                  ? "text-accent-700 dark:text-white"
-                  : "text-ink-600 hover:text-ink-950 dark:text-ink-300 dark:hover:text-white",
+                  ? "text-primary"
+                  : "text-content-secondary hover:text-content",
               )}
             >
               {item.label}
               {isActive(item.href) ? (
                 <motion.span
                   layoutId="nav-active"
-                  className="absolute inset-0 -z-10 rounded-full bg-accent-50 dark:bg-ink-800/70"
+                  className="absolute inset-0 -z-10 rounded-lg bg-primary-soft"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               ) : null}
@@ -87,7 +88,7 @@ export function Navbar() {
             aria-label="Toggle navigation menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="grid h-9 w-9 place-items-center rounded-full border border-ink-200 text-ink-700 lg:hidden dark:border-ink-700 dark:text-ink-200"
+            className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-surface/70 text-content-secondary transition-colors hover:border-border-hover hover:text-content lg:hidden"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -102,23 +103,27 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-ink-100 bg-white/95 backdrop-blur-xl lg:hidden dark:border-ink-800 dark:bg-ink-950/90"
+            className="overflow-hidden border-t border-border bg-surface/95 backdrop-blur-xl lg:hidden"
           >
             <div className="container-page flex flex-col gap-1 py-4">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
                     "rounded-xl px-4 py-3 text-sm font-medium transition-colors",
                     isActive(item.href)
-                      ? "bg-accent-50 text-accent-700 dark:bg-ink-800/70 dark:text-white"
-                      : "text-ink-700 hover:bg-ink-50 dark:text-ink-200 dark:hover:bg-ink-800/50",
+                      ? "bg-primary-soft text-primary"
+                      : "text-content-secondary hover:bg-surface-secondary hover:text-content",
                   )}
                 >
                   {item.label}
                 </Link>
               ))}
+              <ButtonLink href="/contact" size="md" className="mt-2 sm:hidden">
+                Let&apos;s talk
+              </ButtonLink>
             </div>
           </motion.div>
         ) : null}

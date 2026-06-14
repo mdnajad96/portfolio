@@ -38,7 +38,7 @@ export default function HomePage() {
       </Section>
 
       {/* Projects preview */}
-      <Section className="bg-ink-50/40 dark:bg-ink-950">
+      <Section className="bg-surface-secondary/40">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
             eyebrow="Selected Projects"
@@ -68,7 +68,7 @@ export default function HomePage() {
       </Section>
 
       {/* Research preview */}
-      <Section className="bg-ink-50/40 dark:bg-ink-950">
+      <Section className="bg-surface-secondary/40">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
             eyebrow="Research"

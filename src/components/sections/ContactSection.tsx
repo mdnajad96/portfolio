@@ -42,15 +42,15 @@ export function ContactSection() {
           {channels.map((channel) => {
             const Icon = channel.icon;
             const inner = (
-              <div className="group flex items-center gap-4 rounded-2xl border border-ink-100 bg-white/60 p-5 transition-all hover:-translate-y-0.5 hover:border-accent-300 hover:shadow-soft dark:border-ink-800 dark:bg-ink-900/40 dark:hover:border-accent-500">
-                <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl bg-accent-50 text-accent-700 transition-colors group-hover:bg-accent-600 group-hover:text-white dark:bg-ink-800 dark:text-accent-300">
+              <div className="group flex items-center gap-4 rounded-2xl border border-border glass p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-border-hover hover:shadow-md">
+                <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl bg-primary-soft text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-content-muted">
                     {channel.label}
                   </p>
-                  <p className="truncate text-sm font-medium text-ink-900 dark:text-ink-100">
+                  <p className="truncate text-sm font-medium text-content">
                     {channel.value}
                   </p>
                 </div>

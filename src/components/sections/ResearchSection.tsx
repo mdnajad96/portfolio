@@ -7,15 +7,15 @@ export function ResearchInterests() {
       {researchInterests.map((interest) => {
         const Icon = interest.icon;
         return (
-          <RevealItem key={interest.title}>
-            <div className="group surface-card h-full p-6 hover:-translate-y-1 hover:shadow-card">
-              <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent-50 text-accent-700 transition-colors group-hover:bg-accent-600 group-hover:text-white dark:bg-ink-800 dark:text-accent-300">
+          <RevealItem key={interest.title} className="h-full">
+            <div className="group surface-card h-full p-6 hover:-translate-y-1 hover:border-border-hover hover:shadow-md">
+              <span className="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                 <Icon className="h-5 w-5" />
               </span>
-              <h3 className="mt-5 text-base font-semibold text-ink-950 dark:text-white">
+              <h3 className="mt-5 text-base font-semibold text-content">
                 {interest.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-500 dark:text-ink-400">
+              <p className="mt-2 text-sm leading-relaxed text-content-muted">
                 {interest.description}
               </p>
             </div>

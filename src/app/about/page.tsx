@@ -36,7 +36,7 @@ export default function AboutPage() {
             <div className="mt-6 space-y-5">
               {summary.paragraphs.map((p, i) => (
                 <Reveal key={i} delay={i * 0.05}>
-                  <p className="text-base leading-relaxed text-ink-600 dark:text-ink-300">
+                  <p className="text-base leading-relaxed text-content-secondary">
                     {p}
                   </p>
                 </Reveal>
@@ -46,14 +46,14 @@ export default function AboutPage() {
 
           <Reveal delay={0.1}>
             <div className="surface-card h-full p-7 sm:p-8">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-content-muted">
                 At a glance
               </h3>
               <ul className="mt-5 space-y-4">
                 {summary.highlights.map((h) => (
                   <li key={h} className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-accent-600 dark:text-accent-400" />
-                    <span className="text-sm leading-relaxed text-ink-700 dark:text-ink-200">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+                    <span className="text-sm leading-relaxed text-content-secondary">
                       {h}
                     </span>
                   </li>
@@ -64,7 +64,7 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section className="bg-ink-50/40 pt-0 dark:bg-ink-950">
+      <Section className="bg-surface-secondary/40 pt-0">
         <SectionHeading eyebrow="Education" title="Academic foundation" />
         <div className="mt-10">
           <Education />

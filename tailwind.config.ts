@@ -1,5 +1,10 @@
 import type { Config } from "tailwindcss";
 
+/**
+ * Token-driven Tailwind theme.
+ * Every color resolves to a CSS variable defined in globals.css, so the
+ * same utility classes adapt automatically across light and dark themes.
+ */
 const config: Config = {
   darkMode: "class",
   content: [
@@ -10,38 +15,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Brand: an engineering-inspired blue/indigo system
-        ink: {
-          50: "#f5f7fa",
-          100: "#eaeef4",
-          200: "#d2dbe8",
-          300: "#aabbd1",
-          400: "#7b95b6",
-          500: "#56739c",
-          600: "#435c82",
-          700: "#374b6a",
-          800: "#31405a",
-          900: "#2d384d",
-          950: "#1d2533",
+        primary: {
+          DEFAULT: "rgb(var(--primary) / <alpha-value>)",
+          hover: "rgb(var(--primary-hover) / <alpha-value>)",
+          soft: "rgb(var(--primary-soft) / <alpha-value>)",
+          foreground: "rgb(var(--primary-foreground) / <alpha-value>)",
         },
-        accent: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe",
-          300: "#93c5fd",
-          400: "#60a5fa",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
-          950: "#172554",
+        background: "rgb(var(--background) / <alpha-value>)",
+        surface: {
+          DEFAULT: "rgb(var(--surface) / <alpha-value>)",
+          secondary: "rgb(var(--surface-secondary) / <alpha-value>)",
         },
-        cyan: {
-          400: "#22d3ee",
-          500: "#06b6d4",
-          600: "#0891b2",
+        content: {
+          DEFAULT: "rgb(var(--text-primary) / <alpha-value>)",
+          secondary: "rgb(var(--text-secondary) / <alpha-value>)",
+          muted: "rgb(var(--text-muted) / <alpha-value>)",
         },
+        border: {
+          DEFAULT: "rgb(var(--border) / <alpha-value>)",
+          hover: "rgb(var(--border-hover) / <alpha-value>)",
+        },
+        success: "rgb(var(--success) / <alpha-value>)",
+        warning: "rgb(var(--warning) / <alpha-value>)",
+        danger: "rgb(var(--danger) / <alpha-value>)",
+        info: "rgb(var(--info) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
@@ -55,18 +52,24 @@ const config: Config = {
         content: "1200px",
         prose: "68ch",
       },
+      borderRadius: {
+        xl: "0.75rem", // 12px
+        "2xl": "1rem", // 16px
+      },
       boxShadow: {
-        soft: "0 1px 2px rgba(16, 24, 40, 0.04), 0 4px 16px rgba(16, 24, 40, 0.06)",
-        card: "0 1px 3px rgba(16, 24, 40, 0.06), 0 12px 40px -12px rgba(16, 24, 40, 0.12)",
-        glow: "0 0 0 1px rgba(37, 99, 235, 0.08), 0 18px 50px -18px rgba(37, 99, 235, 0.35)",
+        sm: "var(--shadow-sm)",
+        md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
+        glow: "var(--shadow-glow)",
+        // Backward-compatible aliases mapped onto the token scale
+        soft: "var(--shadow-sm)",
+        card: "var(--shadow-md)",
       },
       backgroundImage: {
         "grid-light":
-          "linear-gradient(to right, rgba(15,23,42,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(15,23,42,0.05) 1px, transparent 1px)",
+          "linear-gradient(to right, rgba(15,23,42,0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(15,23,42,0.045) 1px, transparent 1px)",
         "grid-dark":
-          "linear-gradient(to right, rgba(148,163,184,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(148,163,184,0.08) 1px, transparent 1px)",
-        "radial-fade":
-          "radial-gradient(60% 60% at 50% 40%, rgba(37,99,235,0.10) 0%, rgba(37,99,235,0) 70%)",
+          "linear-gradient(to right, rgba(148,163,184,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(148,163,184,0.07) 1px, transparent 1px)",
       },
       keyframes: {
         "fade-up": {
@@ -83,12 +86,17 @@ const config: Config = {
         shimmer: {
           "100%": { transform: "translateX(100%)" },
         },
+        "gradient-pan": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both",
         float: "float 6s ease-in-out infinite",
         "spin-slow": "spin-slow 28s linear infinite",
         shimmer: "shimmer 2s infinite",
+        "gradient-pan": "gradient-pan 8s ease infinite",
       },
     },
   },

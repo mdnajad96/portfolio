@@ -40,7 +40,7 @@ export default function ResearchPage() {
         </div>
       </Section>
 
-      <Section className="bg-ink-50/40 dark:bg-ink-950">
+      <Section className="bg-surface-secondary/40">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
             eyebrow="Publications"
