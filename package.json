@@ -4,9 +4,9 @@
   "private": true,
   "description": "Premium engineering portfolio for Muhammad Munajad — Mechanical Engineer, Process Quality Engineer, Product Design Engineer, and Researcher.",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3300",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3300",
     "lint": "next lint"
   },
   "dependencies": {

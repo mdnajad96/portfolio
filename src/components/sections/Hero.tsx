@@ -16,21 +16,36 @@ import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
 import { GridBackground, GlowAccent } from "@/components/ui/GridBackground";
 
+// Hoisted static variant sets so the Hero doesn't reallocate objects
+// on every render. The `y` translate is the only thing that changes
+// based on the reduced-motion preference, and that's small enough to
+// swap via a shallow object spread.
+const heroContainer: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+const heroItemBase: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const heroItemReduced: Variants = {
+  hidden: { opacity: 0, y: 0 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 export function Hero() {
   const reduceMotion = useReducedMotion();
-
-  const container: Variants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-  };
-  const item: Variants = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-    },
-  };
+  const heroItem: Variants = reduceMotion ? heroItemReduced : heroItemBase;
 
   return (
     <section className="relative overflow-hidden pt-28 sm:pt-32 lg:pt-40">
@@ -41,18 +56,18 @@ export function Hero() {
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
           {/* Copy */}
           <motion.div
-            variants={container}
+            variants={heroContainer}
             initial="hidden"
             animate="visible"
             className="order-2 lg:order-1"
           >
-            <motion.span variants={item} className="chip">
+            <motion.span variants={heroItem} className="chip">
               <span className="h-1.5 w-1.5 rounded-full bg-accent-600" />
               {hero.eyebrow}
             </motion.span>
 
             <motion.h1
-              variants={item}
+              variants={heroItem}
               className="mt-6 font-display text-4xl font-semibold leading-[1.05] tracking-tightest text-ink-950 dark:text-white sm:text-5xl lg:text-6xl"
             >
               {hero.headlineLines.map((line, i) => (
@@ -65,14 +80,14 @@ export function Hero() {
             </motion.h1>
 
             <motion.p
-              variants={item}
+              variants={heroItem}
               className="mt-6 max-w-xl text-base leading-relaxed text-ink-600 dark:text-ink-300 sm:text-lg"
             >
               {hero.subheadline}
             </motion.p>
 
             <motion.div
-              variants={item}
+              variants={heroItem}
               className="mt-8 flex flex-wrap items-center gap-3"
             >
               <ButtonLink href={siteConfig.resumeUrl} download size="lg">
@@ -90,7 +105,7 @@ export function Hero() {
             </motion.div>
 
             <motion.div
-              variants={item}
+              variants={heroItem}
               className="mt-9 flex items-center gap-5"
             >
               <span className="text-xs font-medium uppercase tracking-[0.16em] text-ink-400 dark:text-ink-500">
@@ -164,12 +179,11 @@ function Portrait() {
       <div className="relative overflow-hidden rounded-[1.75rem] border border-ink-100 bg-white shadow-card dark:border-ink-800 dark:bg-ink-900">
         <div className="absolute inset-0 bg-grid-light dark:bg-grid-dark" style={{ backgroundSize: "28px 28px" }} />
         <Image
-          src="/portrait.svg"
+          src="/Munajad.jpeg"
           alt="Portrait of Muhammad Munajad, Mechanical Engineer"
           width={640}
           height={760}
           priority
-          unoptimized
           className="relative h-auto w-full object-cover"
         />
         {/* Caption badge */}

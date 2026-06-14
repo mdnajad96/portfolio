@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Send, CheckCircle2 } from "lucide-react";
 import { siteConfig } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
@@ -18,6 +18,9 @@ export function ContactForm() {
   const [form, setForm] = useState<FormState>(initial);
   const [errors, setErrors] = useState<Partial<FormState>>({});
   const [submitted, setSubmitted] = useState(false);
+  // Track a mounted guard so we don't open the mail client twice on
+  // rapid re-renders (e.g. React strict mode double-invoke).
+  const submittedRef = useRef(false);
 
   const update =
     (field: keyof FormState) =>
@@ -41,7 +44,10 @@ export function ContactForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (submittedRef.current) return;
     if (!validate()) return;
+
+    submittedRef.current = true;
 
     // No backend required: hand off to the visitor's mail client.
     const subject = encodeURIComponent(
@@ -53,6 +59,11 @@ export function ContactForm() {
     window.location.href = `${siteConfig.links.email}?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
+
+  // Reset the ref if the user chooses to send another message.
+  useEffect(() => {
+    if (!submitted) submittedRef.current = false;
+  }, [submitted]);
 
   if (submitted) {
     return (

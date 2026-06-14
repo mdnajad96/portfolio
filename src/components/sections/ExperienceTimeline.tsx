@@ -2,6 +2,7 @@ import { MapPin } from "lucide-react";
 import { experience } from "@/lib/data";
 import { Badge } from "@/components/ui/Badge";
 import { Reveal } from "@/components/ui/Reveal";
+import { cn } from "@/lib/utils";
 
 export function ExperienceTimeline() {
   return (
@@ -19,12 +20,12 @@ export function ExperienceTimeline() {
             <li key={`${item.company}-${item.period}`} className="relative pl-14 sm:pl-20">
               {/* Node */}
               <span
-                className={[
+                className={cn(
                   "absolute left-0 top-1 grid h-10 w-10 place-items-center rounded-xl border shadow-soft sm:h-14 sm:w-14",
                   item.current
                     ? "border-accent-300 bg-accent-600 text-white"
                     : "border-ink-100 bg-white text-ink-700 dark:border-ink-700 dark:bg-ink-900 dark:text-ink-200",
-                ].join(" ")}
+                )}
               >
                 <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
               </span>

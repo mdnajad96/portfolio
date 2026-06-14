@@ -7,10 +7,33 @@ interface RevealProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  /** translate direction for the entrance */
-  y?: number;
   once?: boolean;
 }
+
+// Hoisted static variants so we don't reallocate per-render.
+const baseVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
+const reducedVariants: Variants = {
+  hidden: { opacity: 0, y: 0 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
 
 /**
  * Scroll-reveal wrapper. Fades and lifts content into view as it enters
@@ -20,23 +43,12 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  y = 24,
   once = true,
 }: RevealProps) {
   const reduceMotion = useReducedMotion();
 
-  const variants: Variants = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : y },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        delay,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
+  // Pick the static variant set; only the delay changes per call.
+  const variants: Variants = reduceMotion ? reducedVariants : baseVariants;
 
   return (
     <motion.div
@@ -45,6 +57,7 @@ export function Reveal({
       whileInView="visible"
       viewport={{ once, margin: "-80px" }}
       variants={variants}
+      transition={{ delay }}
     >
       {children}
     </motion.div>
@@ -81,27 +94,37 @@ export function RevealGroup({
   );
 }
 
+const itemBaseVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const itemReducedVariants: Variants = {
+  hidden: { opacity: 0, y: 0 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 export function RevealItem({
   children,
   className,
-  y = 24,
 }: {
   children: React.ReactNode;
   className?: string;
-  y?: number;
 }) {
   const reduceMotion = useReducedMotion();
+  const variants: Variants = reduceMotion ? itemReducedVariants : itemBaseVariants;
   return (
     <motion.div
       className={cn(className)}
-      variants={{
-        hidden: { opacity: 0, y: reduceMotion ? 0 : y },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-        },
-      }}
+      variants={variants}
     >
       {children}
     </motion.div>

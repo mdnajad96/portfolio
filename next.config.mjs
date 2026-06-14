@@ -7,6 +7,11 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [],
   },
+  experimental: {
+    // Tree-shake lucide-react and framer-motion imports more aggressively
+    // to keep client bundles small.
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+  },
   async headers() {
     return [
       {
